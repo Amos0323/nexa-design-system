@@ -4,6 +4,12 @@
 
 An enterprise React design system portfolio project demonstrating Front-End / UX Developer skills: typed UI architecture, Material UI theming, responsive design, accessibility, testing, and documentation.
 
+## Live Demos
+
+- [Application](https://nexa-design-system-sello-m.vercel.app)
+- [Storybook component library](https://nexa-storybook-sello-m.vercel.app)
+- [Figma design and handoff](https://www.figma.com/design/dOGqmnvbpkcCjZDKagTMVH)
+
 ## Current scope
 
 Phases 1–3 provide the original ten components, twelve enterprise components, and a Learning Administration composition. Phase 4 adds Figma handoff specifications and a Storybook guide without changing runtime components or design tokens. It remains a source-level library, not a published package. LearningOps, micro-frontends, authentication, backend persistence, and publishing remain out of scope.
@@ -143,7 +149,7 @@ Storybook includes **Guides / Figma Handoff**, a concise consumer guide with lin
 
 [GitHub Actions](https://github.com/Amos0323/nexa-design-system/actions/workflows/ci.yml) uses Node 24, npm download caching, and npm ci. It runs formatting, lint, type checking, unit tests, the app build, the static Storybook build, and Chromium browser accessibility tests on pushes and pull requests. The job uses read-only permissions and retains browser failure artifacts for seven days.
 
-The badge reflects the actual remote workflow status; local checks do not establish hosted CI success. Deployment, package publishing and branch protection are not configured.
+The badge reflects the actual remote workflow status; local checks do not establish hosted CI success. The application and Storybook are deployed separately on Vercel. Package publishing and branch protection are not configured.
 
 ## AI-assisted development
 
@@ -194,7 +200,7 @@ Vitest and React Testing Library exercise behavior with accessible queries and a
 - Reconcile the supplied Figma file with token/variant specifications and record visual, screen-reader, high-contrast and zoom/reflow acceptance.
 - Future phases can add visual regression, broader browser coverage and library packaging/versioning. The demo is not an npm package.
 
-## Recommended deployment configuration
+## Deployment configuration
 
 Host the app and Storybook as separate static projects using Node 24:
 
@@ -203,4 +209,4 @@ Host the app and Storybook as separate static projects using Node 24:
 | Nexa demo      | npm ci  | npm run build           | dist             |
 | Nexa Storybook | npm ci  | npm run build-storybook | storybook-static |
 
-Keep Storybook assets and its handoff/ directory together. The app's enterprise view uses a query parameter, so no custom path router is currently required. No environment secrets are needed. Hosting under a subdirectory requires reviewing the Vite asset base. No deployment has been performed.
+Keep Storybook assets and its handoff/ directory together. The app's enterprise view uses a query parameter, so no custom path router is currently required. No environment secrets are needed. Hosting under a subdirectory requires reviewing the Vite asset base. The live application and Storybook are linked in Live Demos above.
