@@ -1,0 +1,117 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Guides/Figma Handoff" />
+
+# Figma Handoff
+
+Nexa connects design intent to a tested React implementation:
+
+**Figma variables/styles → component instances → Dev Mode inspection → Nexa React APIs → Storybook → implementation verification.**
+
+**Current status:** React components, themes, stories and tests exist. A [Figma design reference](https://www.figma.com/design/dOGqmnvbpkcCjZDKagTMVH) is now supplied. Metadata confirms Cover and Foundations frames; complete component bindings, Dev Mode comparison and designer sign-off remain unverified. This guide does not represent a completed Figma integration.
+
+## Translate intent into the existing API
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Planned Figma selection</th>
+      <th scope="col">React implementation</th>
+      <th scope="col">Explore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Button · Primary · Medium</td>
+      <td>
+        <code>NexaButton variant="primary" size="medium"</code>
+      </td>
+      <td>
+        <a href="./?path=/docs/components-button--docs" target="_top">
+          Button docs
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>Status Badge · Success · Completed</td>
+      <td>
+        <code>NexaStatusBadge status="success" label="Completed"</code>
+      </td>
+      <td>
+        <a href="./?path=/docs/components-statusbadge--docs" target="_top">
+          StatusBadge docs
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>Data Grid · Search and selection</td>
+      <td>
+        <code>NexaDataGrid showToolbar checkboxSelection</code>
+      </td>
+      <td>
+        <a
+          href="./?path=/docs/components-data-display-datagrid--docs"
+          target="_top"
+        >
+          DataGrid docs
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>Date Picker · Required</td>
+      <td>
+        <code>NexaDatePicker label="Due date" required</code>
+      </td>
+      <td>
+        <a
+          href="./?path=/docs/components-inputs-datepicker--docs"
+          target="_top"
+        >
+          DatePicker docs
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Focus and hover are browser states, not new props. MUI keeps keyboard, focus and input behavior; consumers own values and actions. Use controls and the Theme toolbar to inspect the existing contract before proposing a new variant.
+
+## Tokens have meaning, not just values
+
+- Bind primary actions to color/primary/main → palette.primary.main. The palette maps different primitive shades in Light and Dark modes.
+- Figma gap 16px → theme.spacing(4). Figma radius 8px → sx borderRadius: 1.
+- Use text styles for composite typography. Record the actual font used for comparison; CSS uses a system fallback stack.
+- Primitive shadow tokens currently do not replace MUI elevations. Do not treat their existence as evidence that every component uses them.
+
+The TypeScript tokens and MUI adapter are authoritative for implemented values. No separate manually maintained JSON token source is introduced.
+
+## Designer and developer workflow
+
+1. Create instances from the future Nexa Figma library and bind approved variables/styles.
+2. Supply responsive constraints, states, interaction notes and accessibility intent.
+3. In Dev Mode, inspect the real component, variant, bindings and version; match it to the Nexa API.
+4. Implement with theme values and existing compositions. Interpret generated CSS rather than copying it blindly.
+5. Compare matching viewports, themes, fonts and data; test keyboard behavior and accessibility.
+6. Review differences with designer/QA and record acceptance evidence.
+
+Storybook is the **coded source of truth for demonstrated component behavior**, not proof of Figma parity. Its stories, controls and tests make the contract reviewable. Approved design changes must update both design and implementation references.
+
+## Trace a real composition
+
+The <a href="./?path=/docs/patterns-enterprise-learning-administration--docs" target="_top">Learning Administration pattern</a> combines shell, navigation, breadcrumbs, metrics, grid, status badges and a date filter. The grid scrolls internally on narrow screens; navigation changes to a modal drawer below 1200px. Metrics are illustrative and separate from the 24 sample records.
+
+Unit/browser tests cover specific interactions. Screen-reader acceptance, Figma visual comparison and designer approval remain manual tasks.
+
+## Handoff references
+
+These Markdown references are bundled with Storybook and open as source documents:
+
+- [Token mapping](./handoff/token-mapping.md)
+- [Component mapping](./handoff/component-mapping.md)
+- [Handoff workflow](./handoff/handoff-guide.md)
+- [Dev Mode checklist](./handoff/dev-mode-checklist.md)
+- [Implementation traceability](./handoff/implementation-traceability.md)
+- [Learning Administration case study](./handoff/examples/learning-admin-handoff.md)
+- [Manual Figma preparation](./handoff/figma-preparation.md)
+
+For source/test links inside these documents, use the repository copies under docs/figma. The supplied Figma file is a design reference; the preparation checklist describes work to reconcile and verify, not completed design-to-code acceptance.
